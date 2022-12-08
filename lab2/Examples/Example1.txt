@@ -1,0 +1,7 @@
+﻿int cnt = 2;
+int found = 2;
+float f = 0.3;
+do {
+    cnt++;
+} while (cnt < 10);
+found *= 1;

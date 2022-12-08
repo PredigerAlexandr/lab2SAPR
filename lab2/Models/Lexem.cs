@@ -4,17 +4,22 @@ using System.Text;
 
 namespace lab2.Models
 {
-    public class Constant
+    public class Lexem
     {
-        public string Value { get; set; }
+        public string Type { get; set; }
         public int Id { get; set; }
-        public string Description { get; set; }
+        public string Value { get; set; }
 
-        public Constant(string value, int id, string description)
+        public Lexem(string type, int id, string value)
         {
-            Value = value;
+            Type = type;
             Id = id;
-            Description = description;
+            Value = value;
+        }
+
+        public override string ToString()
+        {
+            return $"Lexem Type: {Type};\t lexem id: {Id};\t value:{Value}";
         }
     }
 }

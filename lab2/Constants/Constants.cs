@@ -7,7 +7,7 @@ namespace lab2.Constants
 {
     public class Constants
     {
-        public static Dictionary<string, DataType> Datatypes = new Dictionary<string, DataType>()
+        public static Dictionary<string, DataType> DataTypes = new Dictionary<string, DataType>()
         {
             {"int", new DataType("int", 0, "32-bit integer")},
             {"bool", new DataType("bool", 1, "boolean") },

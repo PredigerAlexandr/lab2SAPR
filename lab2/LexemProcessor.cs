@@ -19,8 +19,9 @@ namespace lab2
         string prev_oper;
         int checkNumeric;
         int variableCount;
+        public static List<BaseElement> resultList = new List<BaseElement>();
 
-        List<Lexem> process_file()
+        public void process_file()
         {
             for (int i = 0; i < mainString.Length; i++)
             {
@@ -30,58 +31,115 @@ namespace lab2
                 //    continue;
                 //}
 
-                if (mainString[i] == '\n' || mainString[i] == ' ' || mainString[i] ==';'
-                    || mainString[i] == '{' || mainString[i] == '}' || mainString[i] == '(' 
+                if (mainString[i] == '\n' || mainString[i] == ' ' || mainString[i] == ';'
+                    || mainString[i] == '{' || mainString[i] == '}' || mainString[i] == '('
                     || mainString[i] == ')' || mainString[i] == '+' || mainString[i] == '-'
                     || mainString[i] == '*' || mainString[i] == '/')
                 {
-                    if (Constants.Constants.DataTypes.ContainsKey(buffer))
+                    if (ConstantsLexems.DataTypes.ContainsKey(buffer))
                     {
                         AddLexem(buffer);
                     }
-                    else if (mainString[i]=='+' && mainString[i+1] == '+'|| mainString[i] == '-' && mainString[i+1] == '-')
+                    else if (mainString[i] == '+' && mainString[i + 1] == '+' || mainString[i] == '-' && mainString[i + 1] == '-')
                     {
                         AddLexem(buffer);
                         AddVariable(buffer);
                         buffer = "" + mainString[i] + mainString[i++];
                         continue;
                     }
-                    else if()
-                } 
+                    else if (mainString[i] == '*' && mainString[i + 1] == '=' || mainString[i] == '/' && mainString[i] == '='
+                        || mainString[i] == '%' && mainString[i + 1] == '=' || mainString[i] == '+' && mainString[i + 1] == '='
+                        || mainString[i] == '-' && mainString[i + 1] == '=')
+                    {
+                        AddLexem(buffer);
+                        buffer = "" + mainString[i] + mainString[i++];
+                    }
+                    else if (ConstantsLexems.Operators.ContainsKey(buffer))
+                    {
+                        AddLexem(buffer);
+                    }
+                    else if (ConstantsLexems.KeyWords.ContainsKey(buffer))
+                    {
+                        AddLexem(buffer);
+                    }
+                    else if (ConstantsLexems.KeySymbols.ContainsKey(buffer))
+                    {
+                        AddLexem(buffer);
+                    }
+                    else if (int.TryParse(buffer, out checkNumeric))
+                    {
+                        prev_oper = "";
+                        AddLexem(buffer);
+                    }
+                    else if (prev_oper == "assign_operation")
+                    {
+                        prev_oper = "";
+                        listLexems.Add(new Lexem("Constant", 0, buffer));
+                        resultList.Add(new Lexem("Constant", 0, buffer));
+                    }
+                    else
+                    {
+                        AddVariable(buffer);
+                    }
 
+                    if (mainString[i] == '\n' || mainString[i] == ' ') 
+                    {
+                        buffer = "";
+                    }
+                    else if(mainString[i] == '(' || mainString[i] == '{')
+                    {
+                        buffer = mainString[i].ToString();
+                        AddLexem(buffer);
+                        buffer = "";
+                    }
+                    else
+                    {
+                        buffer = mainString[i].ToString();
+                    }
+                }
+                else
+                {
+                    buffer += mainString[i];
+                }
             }
-
-
-
-
-            return listLexems;
+            AddLexem(buffer);
         }
 
         public void AddLexem(string unknown)
         {
-            if (Constants.Constants.DataTypes.ContainsKey(unknown))
+            if (ConstantsLexems.DataTypes.ContainsKey(unknown))
             {
-                listLexems.Add(new Lexem("DataType", Constants.Constants.DataTypes[unknown].Id, Constants.Constants.DataTypes[unknown].Description));
+                listLexems.Add(new Lexem("DataType", ConstantsLexems.DataTypes[unknown].Id, ConstantsLexems.DataTypes[unknown].Description));
+                resultList.Add(new Lexem("DataType", ConstantsLexems.DataTypes[unknown].Id, ConstantsLexems.DataTypes[unknown].Description));
                 last_variable = unknown;
-            } else if (Constants.Constants.Operators.ContainsKey(unknown))
+            }
+            else if (ConstantsLexems.Operators.ContainsKey(unknown))
             {
-                listLexems.Add(new Lexem("Operation", Constants.Constants.Operators[unknown].Id, Constants.Constants.Operators[unknown].Description));
-                if (Constants.Constants.Operators[unknown].Value == "=") prev_oper = "assign_operation";
-            } else if (Constants.Constants.KeyWords.ContainsKey(unknown))
+                listLexems.Add(new Lexem("Operation", ConstantsLexems.Operators[unknown].Id, ConstantsLexems.Operators[unknown].Description));
+                resultList.Add(new Lexem("Operation", ConstantsLexems.Operators[unknown].Id, ConstantsLexems.Operators[unknown].Description));
+                if (ConstantsLexems.Operators[unknown].Value == "=") prev_oper = "assign_operation";
+            }
+            else if (ConstantsLexems.KeyWords.ContainsKey(unknown))
             {
-                listLexems.Add(new Lexem("Identifier", Constants.Constants.KeyWords[unknown].Id, Constants.Constants.KeyWords[unknown].Description));
+                listLexems.Add(new Lexem("Identifier", ConstantsLexems.KeyWords[unknown].Id, ConstantsLexems.KeyWords[unknown].Description));
+                resultList.Add(new Lexem("Identifier", ConstantsLexems.KeyWords[unknown].Id, ConstantsLexems.KeyWords[unknown].Description));
                 last_variable = unknown;
-            } else if (Constants.Constants.KeySymbols.ContainsKey(unknown))
+            }
+            else if (ConstantsLexems.KeySymbols.ContainsKey(unknown))
             {
-                listLexems.Add(new Lexem("Delimeter", Constants.Constants.KeySymbols[unknown].Id, Constants.Constants.KeySymbols[unknown].Value));
-            } else if (int.TryParse(unknown, out checkNumeric)){
+                listLexems.Add(new Lexem("Delimeter", ConstantsLexems.KeySymbols[unknown].Id, ConstantsLexems.KeySymbols[unknown].Value));
+                resultList.Add(new Lexem("Delimeter", ConstantsLexems.KeySymbols[unknown].Id, ConstantsLexems.KeySymbols[unknown].Value));
+            }
+            else if (int.TryParse(unknown, out checkNumeric))
+            {
                 listLexems.Add(new Lexem("Constant", 0, unknown));
+                resultList.Add(new Lexem("Constant", 0, unknown));
             }
         }
 
         public void AddVariable(string variable)
         {
-            if(variable != "")
+            if (variable != "")
             {
                 var elem = listVariables.Where(v => v.Name == variable).ToList();
                 if (elem.Count != 0)
@@ -91,6 +149,7 @@ namespace lab2
                 else
                 {
                     listVariables.Add(new Variable(variable, variableCount++, last_variable));
+                    resultList.Add(new Variable(variable, variableCount++, last_variable));
                 }
             }
         }

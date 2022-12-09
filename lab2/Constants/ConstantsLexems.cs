@@ -5,8 +5,9 @@ using System.Text;
 
 namespace lab2.Constants
 {
-    public class Constants
+    public class ConstantsLexems
     {
+       
         public static Dictionary<string, DataType> DataTypes = new Dictionary<string, DataType>()
         {
             {"int", new DataType("int", 0, "32-bit integer")},
@@ -50,7 +51,6 @@ namespace lab2.Constants
             {"false", new KeyWord("false", 8, "false") },
             {"true", new KeyWord("true", 9, "true") },
             {"static", new KeyWord("static", 10, "static") },
-            {"void", new KeyWord("void", 11, "void") },
             {"void", new KeyWord("void", 11, "void") },
         };
 

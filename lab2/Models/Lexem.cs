@@ -4,7 +4,7 @@ using System.Text;
 
 namespace lab2.Models
 {
-    public class Lexem
+    public class Lexem:BaseElement
     {
         public string Type { get; set; }
         public int Id { get; set; }

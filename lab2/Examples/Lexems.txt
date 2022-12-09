@@ -1,0 +1,26 @@
+DataType;0;32-bit integer
+Variable;1;int;cnt
+Operation;0;assign_operation
+Constant;0;2
+Variable;3;int;;
+DataType;0;32-bit integer
+Variable;5;int;found
+Operation;0;assign_operation
+Constant;0;2
+DataType;4;float
+Variable;8;float;f
+Operation;0;assign_operation
+Constant;0;0.3
+Identifier;3;do
+Delimeter;7;{
+Variable;11;do;
+Operation;10;increment_operation
+Delimeter;8;}
+Identifier;7;while
+Delimeter;3;(
+Operation;9;less_operation
+Constant;0;10
+Delimeter;4;)
+Operation;0;assign_operation
+Constant;0;1
+Delimeter;1;;

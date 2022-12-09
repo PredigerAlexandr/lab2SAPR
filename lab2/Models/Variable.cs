@@ -4,7 +4,7 @@ using System.Text;
 
 namespace lab2.Models
 {
-    public class Variable
+    public class Variable:BaseElement
     {
         public string Name { get; set; }
         public int Id { get; set; }

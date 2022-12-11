@@ -1,0 +1,178 @@
+Identifier Node: 
+ -type: public
+Identifier Node: 
+ -type: class
+Variable Node: 
+ -type: class
+|
+----------------
+               |
+               Delimeter Node: 
+                -type: {
+               Identifier Node: 
+                -type: public
+               Identifier Node: 
+                -type: static
+               Identifier Node: 
+                -type: void
+               Variable Node: 
+                -Type Variable: void 
+                -Main
+               Delimeter Node: 
+                -type: (
+               Variable Node: 
+                -Type Variable: void 
+                -String[]
+               Variable Node: 
+                -Type Variable: void 
+                -args
+               Delimeter Node: 
+                -type: )
+               Delimeter Node: 
+                -type: {
+               |
+               ----------------
+                              |
+                              DataType Node: 
+                               -32-bit integer
+                              Variable Node: 
+                               -Type Variable: int 
+                               -count
+                              Operation Node: 
+                               -assign_operation
+                              Constant Node: 
+                               -value: 1
+                              Delimeter Node: 
+                               -type: semicolon
+                              |
+                              ----------------
+                                             |
+                                             Identifier Node: 
+                                              -type: if
+                                             Delimeter Node: 
+                                              -type: (
+                                             Variable Node: 
+                                              -Type Variable: int 
+                                              -count
+                                             Operation Node: 
+                                              -equal_operation
+                                             Constant Node: 
+                                              -value: 1
+                                             Delimeter Node: 
+                                              -type: )
+                                             Delimeter Node: 
+                                              -type: {
+                                             DataType Node: 
+                                              -32-bit integer
+                                             Variable Node: 
+                                              -Type Variable: int 
+                                              -count2
+                                             Operation Node: 
+                                              -assign_operation
+                                             Constant Node: 
+                                              -value: 2
+                                             Delimeter Node: 
+                                              -type: semicolon
+                                             Variable Node: 
+                                              -Type Variable: int 
+                                              -count
+                                             Operation Node: 
+                                              -increment_operation
+                                             Delimeter Node: 
+                                              -type: semicolon
+                                             |
+                                             ----------------
+                                                            |
+                                                            Identifier Node: 
+                                                             -type: if
+                                                            Delimeter Node: 
+                                                             -type: (
+                                                            Variable Node: 
+                                                             -Type Variable: if 
+                                                             -count1
+                                                            Operation Node: 
+                                                             -less_operation
+                                                            Constant Node: 
+                                                             -value: 3
+                                                            Delimeter Node: 
+                                                             -type: )
+                                                            Delimeter Node: 
+                                                             -type: {
+                                                            |
+                                                            ----------------
+                                                                           |
+                                                                           Identifier Node: 
+                                                                            -type: if
+                                                                           Delimeter Node: 
+                                                                            -type: (
+                                                                           Variable Node: 
+                                                                            -Type Variable: int 
+                                                                            -count2
+                                                                           Operation Node: 
+                                                                            -less_operation
+                                                                           Constant Node: 
+                                                                            -value: 4
+                                                                           Delimeter Node: 
+                                                                            -type: )
+                                                                           Delimeter Node: 
+                                                                            -type: {
+                                                                           DataType Node: 
+                                                                            -32-bit integer
+                                                                           Variable Node: 
+                                                                            -Type Variable: int 
+                                                                            -count3
+                                                                           Operation Node: 
+                                                                            -assign_operation
+                                                                           Constant Node: 
+                                                                            -value: 123
+                                                                           Delimeter Node: 
+                                                                            -type: semicolon
+                                                                           Variable Node: 
+                                                                            -Type Variable: int 
+                                                                            -count2
+                                                                           Operation Node: 
+                                                                            -increment_operation
+                                                                           Delimeter Node: 
+                                                                            -type: semicolon
+                                                                           Delimeter Node: 
+                                                                            -type: }
+                                                                           |
+                                                            ----------------
+                                                            |
+                                                            Variable Node: 
+                                                             -Type Variable: int 
+                                                             -cnt
+                                                            Operation Node: 
+                                                             -increment_operation
+                                                            Delimeter Node: 
+                                                             -type: semicolon
+                                                            Delimeter Node: 
+                                                             -type: }
+                                                            |
+                                             ----------------
+                                             |
+                                             Delimeter Node: 
+                                              -type: }
+                                             |
+                                             ----------------
+                                                            |
+                                                            Identifier Node: 
+                                                             -type: else
+                                                            Delimeter Node: 
+                                                             -type: {
+                                                            Variable Node: 
+                                                             -Type Variable: int 
+                                                             -cnt
+                                                            Operation Node: 
+                                                             -decrement_operation
+                                                            Delimeter Node: 
+                                                             -type: semicolon
+                                                            |
+                                                            ----------------
+                                                                           |
+                                                                           Delimeter Node: 
+                                                                            -type: }
+                                                                           Delimeter Node: 
+                                                                            -type: }
+                                                                           Delimeter Node: 
+                                                                            -type: }

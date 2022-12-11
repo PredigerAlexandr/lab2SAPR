@@ -12,7 +12,7 @@ namespace lab2
             processor.process_file();
             Lexem checkLex = new Lexem("dd", 3, "1231");
             Variable checkVar = new Variable("fefe", 112, "ddeeewer");
-            using(StreamWriter sw = new StreamWriter("C:\\Users\\User\\OneDrive\\Desktop\\УлГТУ\\САПР\\lab2SAPR\\lab2\\Examples\\Lexems.txt"))
+            using(StreamWriter sw = new StreamWriter("C:\\Users\\Alexandr\\Desktop\\_\\5 курс УлГТУ ИВТ\\Вычислительная математика\\lab5\\lab2\\lab2\\Examples\\Lexems.txt"))
             {
                 foreach (var elem in LexemProcessor.resultList)
                 {
@@ -29,7 +29,9 @@ namespace lab2
                 }
             }
             Parser parser = new Parser();
-            parser.BuildTree("C:\\Users\\User\\OneDrive\\Desktop\\УлГТУ\\САПР\\lab2SAPR\\lab2\\Examples\\Lexems.txt");
+            parser.BuildTree("C:\\Users\\Alexandr\\Desktop\\_\\5 курс УлГТУ ИВТ\\Вычислительная математика\\lab5\\lab2\\lab2\\Examples\\Lexems.txt");
+            Generate generate = new Generate(parser.tree);
+            generate.GenetateJavaCode();
         }
     }
 }

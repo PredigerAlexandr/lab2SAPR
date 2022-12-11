@@ -10,7 +10,7 @@ namespace lab2
 {
     public class LexemProcessor
     {
-        string mainString = File.ReadAllText("C:\\Users\\User\\OneDrive\\Desktop\\УлГТУ\\САПР\\lab2SAPR\\lab2\\Examples\\Example1.txt");
+        string mainString = File.ReadAllText("C:\\Users\\Alexandr\\Desktop\\_\\5 курс УлГТУ ИВТ\\Вычислительная математика\\lab5\\lab2\\lab2\\Examples\\Example3.txt");
         List<Lexem> listLexems = new List<Lexem>();
         List<Variable> listVariables = new List<Variable>();
         bool flagInc = false;
@@ -34,7 +34,7 @@ namespace lab2
                 if (mainString[i] == '\n' || mainString[i] == ' ' || mainString[i] == ';'
                     || mainString[i] == '{' || mainString[i] == '}' || mainString[i] == '('
                     || mainString[i] == ')' || mainString[i] == '+' || mainString[i] == '-'
-                    || mainString[i] == '*' || mainString[i] == '/')
+                    || mainString[i] == '*' || mainString[i] == '/' || mainString[i] == '\r')
                 {
                     if (ConstantsLexems.DataTypes.ContainsKey(buffer))
                     {
@@ -82,7 +82,7 @@ namespace lab2
                         AddVariable(buffer);
                     }
 
-                    if (mainString[i] == '\n' || mainString[i] == ' ') 
+                    if (mainString[i] == '\n' || mainString[i] == ' ' || mainString[i] == '\r') 
                     {
                         buffer = "";
                     }
@@ -127,8 +127,8 @@ namespace lab2
             }
             else if (ConstantsLexems.KeySymbols.ContainsKey(unknown))
             {
-                listLexems.Add(new Lexem("Delimeter", ConstantsLexems.KeySymbols[unknown].Id, ConstantsLexems.KeySymbols[unknown].Value));
-                resultList.Add(new Lexem("Delimeter", ConstantsLexems.KeySymbols[unknown].Id, ConstantsLexems.KeySymbols[unknown].Value));
+                listLexems.Add(new Lexem("Delimeter", ConstantsLexems.KeySymbols[unknown].Id, ConstantsLexems.KeySymbols[unknown].Description));
+                resultList.Add(new Lexem("Delimeter", ConstantsLexems.KeySymbols[unknown].Id, ConstantsLexems.KeySymbols[unknown].Description));
             }
             else if (int.TryParse(unknown, out checkNumeric))
             {
@@ -145,6 +145,7 @@ namespace lab2
                 if (elem.Count != 0)
                 {
                     listVariables.Add(new Variable(variable, variableCount++, elem.First().DataType));
+                    resultList.Add(new Variable(variable, variableCount++, elem.First().DataType));
                 }
                 else
                 {

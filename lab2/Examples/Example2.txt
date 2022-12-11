@@ -1,7 +1,8 @@
-﻿int count = 0;
-string str = "Heelo World";
+﻿int count = 0.5;
+int per = 12354548484888815;
+string str = 2;
 float f = 0.3;
-bool flag = true;
+bool flag = "eee";
 if (found > 0) {
     count++;
     if (count < 5){

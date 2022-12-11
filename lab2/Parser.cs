@@ -12,7 +12,7 @@ namespace lab2
     {
         public string mainString = "";
         public List<Node> tree = new List<Node>();
-        int checkNum;
+        long checkNum;
         Dictionary<string, string> valueDictionary = new Dictionary<string, string>();
 
         public string CheckType(string type, string variable, int line)
@@ -21,7 +21,7 @@ namespace lab2
 
             if (type == "int")
             {
-                if (!(int.TryParse(variable, out checkNum) || variable.Contains('.') || variable.Contains('\"')))
+                if (variable.Contains('.') || !(long.TryParse(variable, out checkNum)) || variable.Contains('\"'))
                 {
                     error = $"\nОшибка недопустимого типа в строке: {line}";
                 }
@@ -29,48 +29,49 @@ namespace lab2
                 {
                     error = $"\nОшибка переполнения int в строке: {line}";
                 }
-                else if (type == "string")
+            }
+            else if (type == "string")
+            {
+                if (long.TryParse(variable, out checkNum) || variable[0] != '\"' || variable[variable.Count() - 1] != '\"')
                 {
-                    if (int.TryParse(variable, out checkNum) || variable[0] != '\"' || variable[variable.Count() - 1] != '\"')
-                    {
-                        error = $"\nОшибка недопустимого типа в строке: {line}";
-                    }
-                }
-                else if (type == "bool")
-                {
-                    if (variable != "true" && variable != "false")
-                    {
-                        error = $"\nОшибка недопустимого типа в строке: {line}";
-                    }
-                }
-                else if (type == "float")
-                {
-                    if (variable.Contains('\"'))
-                    {
-                        error = $"\nОшибка недопустимого типа в строке: {line}";
-                    }
-
-                    if (float.Parse(variable) > Math.Pow(3.4, 38) || float.Parse(variable) < Math.Pow(3.4, 38) * (-1))
-                    {
-                        error = $"\nОшибка переполнения float в строке: {line}";
-                    }
-                }
-                else if (type == "double")
-                {
-                    if (variable.Contains('\"'))
-                    {
-                        error = $"\nОшибка недопустимого типа в строке: {line}";
-                    }
-
-                    if (float.Parse(variable) > Math.Pow(1.7, 308) || float.Parse(variable) < Math.Pow(1.7, 308) * (-1))
-                    {
-                        error = $"\nОшибка переполнения double в строке: {line}";
-                    }
+                    error = $"\nОшибка недопустимого типа в строке: {line}";
                 }
             }
+            else if (type == "bool")
+            {
+                if (variable != "true" && variable != "false")
+                {
+                    error = $"\nОшибка недопустимого типа в строке: {line}";
+                }
+            }
+            else if (type == "float")
+            {
+                if (variable.Contains('\"'))
+                {
+                    error = $"\nОшибка недопустимого типа в строке: {line}";
+                }
+
+                if (float.Parse(variable) > Math.Pow(3.4, 38) || float.Parse(variable) < Math.Pow(3.4, 38) * (-1))
+                {
+                    error = $"\nОшибка переполнения float в строке: {line}";
+                }
+            }
+            else if (type == "double")
+            {
+                if (variable.Contains('\"'))
+                {
+                    error = $"\nОшибка недопустимого типа в строке: {line}";
+                }
+
+                if (float.Parse(variable) > Math.Pow(1.7, 308) || float.Parse(variable) < Math.Pow(1.7, 308) * (-1))
+                {
+                    error = $"\nОшибка переполнения double в строке: {line}";
+                }
+            }
+        
 
             return error;
-        }
+      }
 
         public void BuildTree(string path)
         {
@@ -92,11 +93,12 @@ namespace lab2
             Node node = new Node();
             string error = "";
             int codeLine = 1;
+            Stack <int> forFlag = new Stack<int>();
             bool do_flag = false;
             bool void_flag = false;
             string branch = "";
 
-            using (StreamWriter sw = new StreamWriter("C:\\Users\\User\\OneDrive\\Desktop\\УлГТУ\\САПР\\lab2SAPR\\lab2\\Examples\\Tree.txt"))
+            using (StreamWriter sw = new StreamWriter("C:\\Users\\Alexandr\\Desktop\\_\\5 курс УлГТУ ИВТ\\Вычислительная математика\\lab5\\lab2\\lab2\\Examples\\Tree.txt"))
             {
                 for (int i = 0; i < lexemArray.Length; i++)
                 {
@@ -147,9 +149,36 @@ namespace lab2
                             tmp_lexems2 = lexemArray[i + 1].Split(';');
                         }
 
-                        if (tmp_lexems[0] == "Identifier" && tmp_lexems[2] == "do")
+                        if (tmp_lexems[0] == "Identifier" && tmp_lexems[2] == "if")
                         {
-                            do_flag = true;
+                            forFlag.Push(0);
+                            if(forFlag.Count > 1)
+                            {
+                                sw.Write(branch + "|\n" + branch + "----------------\n");
+                                branch += "               ";
+                                sw.Write(branch + "|\n");
+                            }
+                            
+                        }
+                        if (tmp_lexems[0] == "Delimeter" && (tmp_lexems[2] == "}") && forFlag.Count!=0)
+                        {
+                            forFlag.Pop();
+                            sw.Write(branch + $"{node.NodeName} Node: \n{branch} -type: {node.Type}\n");
+                            if (forFlag.Count != 0)
+                            {
+                                sw.Write(branch + "|\n");
+                                branch = branch.Remove(branch.Length - 15, 15);
+                                sw.Write(branch + "----------------\n" + branch + "|\n" );
+                            } else
+                            {
+                                sw.Write(branch + "|\n" + branch + "----------------\n");
+                                branch += "               ";
+                                sw.Write(branch + "|\n");
+                            }
+
+                            tree.Add(node);
+                            continue;
+
                         }
 
                         if (tmp_lexems[0] == "Variable" && tmp_lexems[2] == "class" && tmp_lexems2[0] == "Delimeter")
@@ -193,7 +222,7 @@ namespace lab2
                         }
                         else if (tmp_lexems[0] == "Operation")
                         {
-                            sw.Write(branch + $"{node.NodeName} Node: \n{branch} -{node.Value}\n");
+                            sw.Write(branch + $"{node.NodeName} Node: \n{branch} -{node.Type}\n");
                         }
                         else if (tmp_lexems[0] == "Delimeter")
                         {
@@ -205,13 +234,13 @@ namespace lab2
                         }
                         else
                         {
-                            sw.Write(branch + $"{node.NodeName} Node: \n{branch} -{node.Type} \n{branch} -{node.VName}");
+                            sw.Write(branch + $"{node.NodeName} Node: \n{branch} -Type Variable: {node.Type} \n{branch} -{node.VName}\n");
                         }
 
-                        if (tmp_lexems[2]=="semicolon" && i != lexemArray.Length - 2)
+                        if (tmp_lexems[2] == "semicolon" && i != lexemArray.Length - 2 && forFlag.Count==0)
                         {
                             codeLine++;
-                            sw.Write(branch + "|\n" + "----------------\n");
+                            sw.Write(branch + "|\n" + branch +  "----------------\n");
                             branch += "               ";
                             sw.Write(branch + "|\n");
                         }

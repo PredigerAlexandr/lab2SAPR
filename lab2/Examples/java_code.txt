@@ -1,0 +1,19 @@
+public class Test {
+	public void static void main(String[] args) {
+		int count = 1;
+		if (count == 1) {
+			int count2 = 2;
+			count++;
+			if (count1 < 3) {
+				if (count2 < 4) {
+					int count3 = 123;
+					count2++;
+				}
+				cnt++;
+			}
+		}
+		else {
+			cnt--;
+		}
+	}
+}

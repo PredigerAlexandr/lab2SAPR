@@ -149,6 +149,11 @@ namespace lab2
                             tmp_lexems2 = lexemArray[i + 1].Split(';');
                         }
 
+                        if (tmp_lexems[0] == "Identifier" && tmp_lexems[2] == "if" && tmp_lexems2[0] != "Delimeter" && tmp_lexems2[2] != "(")
+                        {
+                            error += $"Была найдена ошибка в конструкции блока if. Номер строки: {codeLine}";
+                        }
+
                         if (tmp_lexems[0] == "Identifier" && tmp_lexems[2] == "if")
                         {
                             forFlag.Push(0);
@@ -251,6 +256,7 @@ namespace lab2
                     if (error != "")
                     {
                         Console.WriteLine(error);
+                        error = "";
                     }
                 }
 
